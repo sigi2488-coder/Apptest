@@ -5,25 +5,62 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <ion-list *ngIf="this.perfil != null">
         <ion-item>
-          <ion-label>Perfil del usuario</ion-label>
-          <ion-input></ion-input>
+          <p>Perfil del usuario</p>
+          <h2>{{this.perfil['nombres']+" "+this.perfil['apellido1']}}</h2>
+          <p>{{perfil['numeroempleado']}}</p>
         </ion-item>
         
         <ion-item>
-          <ion-label fixed>Website</ion-label>
-          <ion-input type="url"></ion-input>
-        </ion-item>
-        
+          <ion-item>
+            <ion-thumbnail item-start>
+              <img width="120" src="{{perfil['imagen']}}">
+            </ion-thumbnail>
+            <h2>{{perfil['cargo']}}</h2>
+            <h2>{{perfil['zona']}}</h2>
+            <p>{{perfil['municipio']}}, {{perfil['departamento']}}</p>
+            <p align="right"><button  ion-button color="secondary" >${{(perfil['ventas2019'] + this.vtaSubalt)  | number }}</button></p>
+          </ion-item>
+        </ion-item>        
         <ion-item>
-          <ion-label floating>Email</ion-label>
-          <ion-input type="email"></ion-input>
-        </ion-item>
-        
+          <p><b>Telefono: </b> {{perfil['telefono']}}</p>
+        </ion-item>        
         <ion-item>
-          <ion-label stacked>Phone</ion-label>
-          <ion-input type="tel"></ion-input>
-        </ion-item    
+          <p><b>Email:</b> {{perfil['eamil']}}</p>
+        </ion-item>    
+        <ion-item>
+          <p><b>Fecha Nacimiento:</b> {{perfil['fechanacimiento']}} </p>           
+        </ion-item> 
+        <ion-item>
+          <p><b>Jefe:</b> <a  *ngIf="perfil['jefe'] != null " (click)="openPerfil(perfil['jefe']['email'])" href="#" > {{perfil['jefe']['nombres']+" "+perfil['jefe']['apellido1']}}</a> </p>           
+        </ion-item> 
+        <ion-item *ngIf="this.subalternos != null">
+          <u>Personal a cargo</u> 
+          <ion-grid>
+            <ion-row style="border-bottom: groove;">
+              <ion-col>
+                </ion-col>
+              <ion-col>
+               Nombre
+              </ion-col>
+              <ion-col align="right">
+               Venta
+              </ion-col>              
+            </ion-row>            
+            <ion-row *ngFor="let item of this.subalternos">
+              <ion-col align="left" >
+                <button ion-button small outline color="dark" (click)="openPerfil(item['email'])">Ver</button>
+              </ion-col>   
+              <ion-col>
+                {{item['nombres']}} {{item['apellido1']}}
+              </ion-col>
+              <ion-col align="right">
+                ${{item['ventas2019'] | number }}
+              </ion-col>           
+            </ion-row>
+          </ion-grid>          
+        </ion-item> 
+
   </ion-list>
 </ion-content>

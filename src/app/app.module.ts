@@ -8,6 +8,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 import { PerfilPageModule } from '../pages/perfil/perfil.module';
+//import { HttpModule } from "@angular/http";
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { PerfilPageModule } from '../pages/perfil/perfil.module';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp), 
-    PerfilPageModule
+    IonicModule.forRoot(MyApp),
+    HttpClientModule, 
+    PerfilPageModule,
+  
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
+  entryComponents: [ 
     MyApp,
     HomePage
   ],
